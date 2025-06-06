@@ -27,8 +27,6 @@ Para instalar y ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 ### 1. Clona el repositorio
 
-Primero, clona el repositorio en tu máquina local:
-
 ```bash
 git clone https://github.com/tu_usuario/api_soap_arq.git
 ```
@@ -97,7 +95,18 @@ La aplicación estará corriendo en `http://127.0.0.1:5000/`.
 
 Esta ruta maneja solicitudes SOAP para consultar el estado de paquetes mediante número de seguimiento.
 
-### Ejemplo de solicitud SOAP
+**Endpoint completo:** `http://127.0.0.1:5000/soap`  
+**Método:** `POST`  
+**Tipo de contenido (Content-Type):** `text/xml`
+
+### Cómo consumir en Postman
+
+1. Abre Postman.
+2. Crea una nueva petición con método `POST`.
+3. En la URL coloca: `http://127.0.0.1:5000/soap`
+4. Ve a la pestaña **Headers** y agrega:
+   - `Content-Type: text/xml`
+5. Ve a la pestaña **Body**, selecciona `raw`, y pega el siguiente XML:
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:log="http://logistica.com/ws/tracking">
@@ -108,6 +117,8 @@ Esta ruta maneja solicitudes SOAP para consultar el estado de paquetes mediante 
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+6. Haz clic en **Send** para obtener la respuesta del servicio SOAP.
 
 ### Ejemplo de respuesta SOAP
 
