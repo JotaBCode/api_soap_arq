@@ -14,5 +14,9 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Aquí registras otras rutas y configuraciones
+    # Registrar rutas
+    from app.views import register_routes
+    register_routes(app)
+
     return app
+
