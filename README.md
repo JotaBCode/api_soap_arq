@@ -1,63 +1,53 @@
 # API SOAP Project
 
-Este proyecto es una **API SOAP** que permite rastrear el estado de los paquetes. Está desarrollado utilizando **Flask** como framework, **SQLAlchemy** para manejar la base de datos, y **PostgreSQL** como base de datos para almacenar el estado de los paquetes y sus eventos.
+Este proyecto es una **API SOAP** para rastrear el estado de paquetes. Está construido con **Flask** como framework web, **SQLAlchemy** para manejar la base de datos, y **PostgreSQL** como sistema gestor. Toda la información de los paquetes y sus eventos se almacena en esta base de datos.
 
-## Descripción
+## ¿Qué hace esta API?
 
-La API permite consultar el estado de un paquete mediante el uso de un servicio **SOAP**. La aplicación incluye un servicio que permite rastrear el estado de los paquetes, su ubicación y eventos asociados. El servicio recibe solicitudes **SOAP** y responde con los detalles del estado del paquete.
+Permite consultar el estado de un paquete mediante un número de seguimiento. Al enviar una solicitud tipo SOAP, la API responde con información sobre la ubicación actual del paquete, su estado y un historial de eventos.
 
 ## Tecnologías utilizadas
 
-- **Flask**: Framework web en Python utilizado para crear el servicio API.
-- **SQLAlchemy**: ORM utilizado para interactuar con la base de datos.
-- **PostgreSQL**: Base de datos utilizada para almacenar la información sobre los paquetes.
-- **lxml**: Librería de procesamiento de XML utilizada para construir y manejar la respuesta SOAP.
+- **Flask** para definir rutas y levantar el servidor web.
+- **SQLAlchemy** como ORM.
+- **PostgreSQL** como base de datos relacional.
+- **lxml** para manipular XML, ya que SOAP se basa en este formato.
 
-## Requisitos
+## Requisitos previos
 
-Antes de ejecutar el proyecto, asegúrate de tener lo siguiente instalado en tu máquina:
+Antes de ejecutar el proyecto, es necesario contar con:
 
-- **Python** (preferiblemente 3.7 o superior).
-- **PostgreSQL** (para la base de datos).
-- **Pip** (para instalar dependencias).
+- Python (versión 3.7 o superior recomendada).
+- PostgreSQL instalado y corriendo.
+- Pip para instalar paquetes de Python.
 
-## Instalación
+## Instalación y ejecución
 
-Para instalar y ejecutar este proyecto en tu máquina local, sigue estos pasos:
-
-### 1. Clona el repositorio
+### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/tu_usuario/api_soap_arq.git
 ```
 
-## 2. Navega al directorio del proyecto
+### 2. Ingresar al directorio del proyecto
 
 ```bash
 cd api_soap_arq
 ```
 
-## 3. Crea un entorno virtual (opcional pero recomendado)
+### 3. Crear un entorno virtual (opcional, pero recomendado)
 
 ```bash
 python -m venv venv
 ```
 
-## 4. Activa el entorno virtual
-
-**En Windows:**
+### 4. Activar el entorno virtual (en Windows)
 
 ```bash
 venv\Scripts\activate
 ```
 
-**En Linux/MacOS:**
-
-```bash
-source venv/bin/activate
-```
-
-## 5. Instala las dependencias
+### 5. Instalar las dependencias del proyecto
 
 ```bash
 pip install Flask==2.1.1
@@ -67,11 +57,11 @@ pip install lxml==5.4.0
 pip install psycopg2==2.9.10
 ```
 
-## 6. Configura la base de datos
+### 6. Configurar la base de datos
 
-Instala PostgreSQL si no lo tienes y crea una base de datos llamada `trackingsystem`.
+Asegurarse de tener PostgreSQL funcionando y crear una base de datos llamada `trackingsystem`.
 
-Si estás utilizando Flask-Migrate, ejecuta:
+Si se utiliza Flask-Migrate, ejecutar los siguientes comandos para generar y aplicar las migraciones:
 
 ```bash
 flask db init
@@ -79,34 +69,36 @@ flask db migrate
 flask db upgrade
 ```
 
-Si no usas migraciones, asegúrate de que las tablas `Package` y `TrackingEvent` existan.
+En caso contrario, también se puede optar por crear manualmente las tablas `Package` y `TrackingEvent`.
 
-## 7. Ejecuta la aplicación
+### 7. Ejecutar la aplicación
 
 ```bash
 python run.py
 ```
 
-La aplicación estará corriendo en `http://127.0.0.1:5000/`.
+Con esto, la API estará disponible en `http://127.0.0.1:5000/`.
 
-## Rutas de la API
+---
 
-### /soap (POST)
+## Cómo probar la API
 
-Esta ruta maneja solicitudes SOAP para consultar el estado de paquetes mediante número de seguimiento.
+### URL del servicio SOAP
 
-**Endpoint completo:** `http://127.0.0.1:5000/soap`  
-**Método:** `POST`  
-**Tipo de contenido (Content-Type):** `text/xml`
+- **URL:** `http://127.0.0.1:5000/soap`
+- **Método:** POST
+- **Content-Type:** `text/xml`
 
-### Cómo consumir en Postman
+### Usar Postman
 
-1. Abre Postman.
-2. Crea una nueva petición con método `POST`.
-3. En la URL coloca: `http://127.0.0.1:5000/soap`
-4. Ve a la pestaña **Headers** y agrega:
-   - `Content-Type: text/xml`
-5. Ve a la pestaña **Body**, selecciona `raw`, y pega el siguiente XML:
+1. Abrir Postman y crear una nueva solicitud.
+2. Seleccionar el método `POST` y usar la URL `http://127.0.0.1:5000/soap`.
+3. En la pestaña **Headers**, añadir:
+```
+Key: Content-Type
+Value: text/xml
+```
+4. En la pestaña **Body**, seleccionar `raw` y pegar el siguiente XML:
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:log="http://logistica.com/ws/tracking">
@@ -118,30 +110,13 @@ Esta ruta maneja solicitudes SOAP para consultar el estado de paquetes mediante 
 </soapenv:Envelope>
 ```
 
-6. Haz clic en **Send** para obtener la respuesta del servicio SOAP.
+5. Hacer clic en **Send** para recibir una respuesta con el estado del paquete.
 
-### Ejemplo de respuesta SOAP
+### Usar SoapUI
 
-```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:log="http://logistica.com/ws/tracking">
-    <soapenv:Body>
-        <log:GetTrackingStatusResponse>
-            <log:status>En tránsito</log:status>
-            <log:currentLocation>Lima</log:currentLocation>
-            <log:estimatedDeliveryDate>2025-04-15</log:estimatedDeliveryDate>
-            <log:history>
-                <log:event>
-                    <log:date>2025-04-05 12:00:00</log:date>
-                    <log:description>Paquete recibido en bodega central</log:description>
-                    <log:location>Lima</log:location>
-                </log:event>
-                <log:event>
-                    <log:date>2025-04-07 00:00:00</log:date>
-                    <log:description>Salida hacia Lima</log:description>
-                    <log:location>Arequipa</log:location>
-                </log:event>
-            </log:history>
-        </log:GetTrackingStatusResponse>
-    </soapenv:Body>
-</soapenv:Envelope>
-```
+1. Abrir SoapUI y crear un nuevo proyecto SOAP.
+2. Dejar el campo "Initial WSDL" en blanco.
+3. Crear una nueva solicitud con el endpoint `http://127.0.0.1:5000/soap`.
+4. Pegar el XML de ejemplo en la pestaña de solicitud.
+5. Verificar que el método sea POST y que el encabezado `Content-Type` esté en `text/xml`.
+6. Ejecutar la solicitud para visualizar la respuesta.
