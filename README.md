@@ -1,3 +1,4 @@
+
 # API SOAP Project
 
 Este proyecto es una **API SOAP** para rastrear el estado de paquetes. Está construido con **Flask** como framework web, **SQLAlchemy** para manejar la base de datos, y **PostgreSQL** como sistema gestor. Toda la información de los paquetes y sus eventos se almacena en esta base de datos.
