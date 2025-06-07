@@ -78,7 +78,7 @@ En caso contrario, también se adjunta el archivo backup.sql con la base de dato
 ### 7. Ejecutar la aplicación
 
 ```bash
-python run.py
+python run.py 
 ```
 
 Con esto, la API estará disponible en `http://127.0.0.1:5000/`.
@@ -92,6 +92,7 @@ Con esto, la API estará disponible en `http://127.0.0.1:5000/`.
 - **URL:** `http://127.0.0.1:5000/soap`
 - **Método:** POST
 - **Content-Type:** `text/xml`
+- **Correr el servicio:** `python run.py`
 
 
 ## Cómo probar el WSDL
@@ -100,6 +101,7 @@ Con esto, la API estará disponible en `http://127.0.0.1:5000/`.
 
 - **URL:** `http://localhost:5000/soap?wsdl`
 - **Método:** GET
+- **Correr el servicio:** `python run_soap.py`
 
 ### Usar Postman
 
