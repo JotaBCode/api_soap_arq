@@ -2,6 +2,7 @@
 # API SOAP Project
 
 Este proyecto es una **API SOAP** para rastrear el estado de paquetes. Está construido con **Flask** como framework web, **SQLAlchemy** para manejar la base de datos, y **PostgreSQL** como sistema gestor. Toda la información de los paquetes y sus eventos se almacena en esta base de datos.
+**Se utilizó el Patrón de Arquitectura e Capas (Layered Architecture)**
 
 ## ¿Qué hace esta API?
 
@@ -12,7 +13,7 @@ Permite consultar el estado de un paquete mediante un número de seguimiento. Al
 - **Flask** para definir rutas y levantar el servidor web.
 - **SQLAlchemy** como ORM.
 - **PostgreSQL** como base de datos relacional.
-- **lxml** para manipular XML, ya que SOAP se basa en este formato.
+- **snype** para obtener el WSDL.
 
 ## Requisitos previos
 
@@ -56,6 +57,8 @@ pip install Flask-SQLAlchemy==2.5.1
 pip install SQLAlchemy==1.4.25
 pip install lxml==5.4.0
 pip install psycopg2==2.9.10
+pip install spyne==2.14.0
+pip install Werkzeug==2.0.1
 ```
 
 ### 6. Configurar la base de datos
@@ -70,7 +73,7 @@ flask db migrate
 flask db upgrade
 ```
 
-En caso contrario, también se puede optar por crear manualmente las tablas `Package` y `TrackingEvent`.
+En caso contrario, también se adjunta el archivo backup.sql con la base de datos, respectivas tablas y registros.
 
 ### 7. Ejecutar la aplicación
 
@@ -82,13 +85,21 @@ Con esto, la API estará disponible en `http://127.0.0.1:5000/`.
 
 ---
 
-## Cómo probar la API
+## Cómo probar la API POST
 
 ### URL del servicio SOAP
 
 - **URL:** `http://127.0.0.1:5000/soap`
 - **Método:** POST
 - **Content-Type:** `text/xml`
+
+
+## Cómo probar el WSDL
+
+### URL del servicio WSDL
+
+- **URL:** `http://localhost:5000/soap?wsdl`
+- **Método:** GET
 
 ### Usar Postman
 

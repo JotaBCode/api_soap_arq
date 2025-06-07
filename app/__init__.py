@@ -15,7 +15,7 @@ def create_app():
     migrate.init_app(app, db)
 
     # Registrar rutas
-    from app.views import register_routes
+    from app.views.views import register_routes
     register_routes(app)
 
     return app
